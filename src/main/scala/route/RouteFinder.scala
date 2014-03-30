@@ -13,15 +13,15 @@ class RouteFinder {
   }
 
   def findFavouriteRoute(routeTree: RouteTree) = {
-    def addLikes(routeTree: RouteTree, column: Int, sum: Int): Int = {
-      if (routeTree.size == 0) sum
-      else {
-        val head = routeTree.head
-        val max = head(column).max(head(column + 1))
-        addLikes(routeTree.tail, head.indexOf(max, column), sum + max)
-      }
-    }
-    addLikes(routeTree.tail, 0, routeTree.head(0))
+    sumLikes(routeTree.tail, 0, routeTree.head(0))
   }
 
+  def sumLikes(routeTree: RouteTree, column: Int, sum: Int): Int = {
+    if (routeTree.size == 0) sum
+    else {
+      val head = routeTree.head
+      val max = head(column).max(head(column + 1))
+      sumLikes(routeTree.tail, head.indexOf(max, column), sum + max)
+    }
+  }
 }
