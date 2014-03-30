@@ -14,7 +14,7 @@ class RouteFinder {
 
   def findFavouriteRoute(routeTree: RouteTree) = {
     def addLikes(routeTree: RouteTree, column: Int, sum: Int): Int = {
-      if (routeTree.size == 1) sum
+      if (routeTree.size == 0) sum
       else {
         val head = routeTree.head
         val max = head(column).max(head(column + 1))
