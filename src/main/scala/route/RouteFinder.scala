@@ -14,20 +14,26 @@ class RouteFinder {
   def readRouteFile(fileName: String): (Int, RouteTree) = {
     val lines = Source.fromFile(fileName).getLines.toList
     val seed = lines.head.split(" ")(2).toInt
-    val tree = lines.tail.map(_.split(" ").map(_.toInt).toList)
+    val tree = lines.tail.map(_.split(" ").map(_.toInt).toList).reverse
     (seed, tree)
   }
 
   def sumFavouriteRoute(routeTree: RouteTree) = {
-    sumLikes(routeTree.tail, 0, routeTree.head(0))
+    sumLikes(routeTree.tail, routeTree.head)
   }
 
-  def sumLikes(routeTree: RouteTree, column: Int, sum: Int): Int = {
-    if (routeTree.size == 0) sum
+  def sumLikes(routeTree: RouteTree, rowBelow: List[Int]): Int = {
+    if (routeTree.size == 0) rowBelow.max
     else {
-      val head = routeTree.head
-      val max = head(column).max(head(column + 1))
-      sumLikes(routeTree.tail, head.indexOf(max, column), sum + max)
+      val sumRow = addRows(routeTree.head, rowBelow.sliding(2).toList, Nil)
+      sumLikes(routeTree.tail, sumRow)
+    }
+  }
+
+  def addRows(row: List[Int], below: List[List[Int]], acc: List[Int]): List[Int] = {
+    if (row.size == 0) acc
+    else {
+      addRows(row.tail, below.tail, acc :+ (row.head + below.head.max))
     }
   }
 }
