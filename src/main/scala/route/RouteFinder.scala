@@ -22,10 +22,10 @@ class RouteFinder {
     sumLikes(routeTree.tail, routeTree.head)
   }
 
-  def sumLikes(routeTree: RouteTree, rowBelow: List[Int]): Int = {
-    if (routeTree.size == 0) rowBelow.max
+  def sumLikes(routeTree: RouteTree, accRow: List[Int]): Int = {
+    if (routeTree.size == 0) accRow.head
     else {
-      val sumRow = addRows(routeTree.head, rowBelow.sliding(2).toList, Nil)
+      val sumRow = addRows(routeTree.head, accRow.sliding(2).toList, Nil)
       sumLikes(routeTree.tail, sumRow)
     }
   }
