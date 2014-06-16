@@ -13,7 +13,7 @@ class RouteFinderSpec extends FunSuite {
 
   test("Tree 1 result should be 606") {
     assert(routeFinder.seedAndSum("src/test/scala/route/tree1.txt")
-      === (111, 606))
+      === (111, 683))
   }
 
   test("Tree 2 result should be 634") {
